@@ -1,5 +1,129 @@
 {
-  "HomePage": {
-    "title": "Hello world!"
+  "landing": {
+    "navigation": {
+      "home": "Home",
+      "services": "Services",
+      "features": "Features",
+      "howToUse": "How to Use",
+      "login": "Login",
+      "getStarted": "Get Started"
+    },
+    "hero": {
+      "title": "Krishi Mitra",
+      "subtitle": "Your Digital Agricultural Advisor",
+      "description": "Get instant expert advice for your crops, detect diseases, receive weather alerts, and connect with agricultural officers - all in your preferred language.",
+      "cta": "Start Farming Smarter",
+      "watchDemo": "Watch Demo"
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "Comprehensive agricultural support at your fingertips",
+      "diseaseDetection": {
+        "title": "Disease Detection",
+        "description": "Upload photos of your crops to instantly identify diseases and get treatment recommendations."
+      },
+      "expertConsultation": {
+        "title": "Expert Consultation",
+        "description": "Connect with agricultural officers and experts for personalized farming advice."
+      },
+      "weatherAlerts": {
+        "title": "Weather Alerts",
+        "description": "Receive timely weather updates and alerts to protect your crops and plan farming activities."
+      },
+      "cropAdvisory": {
+        "title": "Crop Advisory",
+        "description": "Get guidance on crop selection, planting schedules, and best farming practices."
+      },
+      "pesticideGuidance": {
+        "title": "Pesticide Guidance",
+        "description": "Identify pesticides from labels and get safety instructions for proper usage."
+      },
+      "nearbyDealers": {
+        "title": "Nearby Dealers",
+        "description": "Find pesticide and fertilizer dealers near your location with contact details."
+      }
+    },
+    "features": {
+      "title": "Key Features",
+      "subtitle": "Everything you need for successful farming",
+      "multilingualSupport": {
+        "title": "Multilingual Support",
+        "description": "Available in English, Hindi, and Malayalam for better accessibility."
+      },
+      "voiceQueries": {
+        "title": "Voice & Text Queries",
+        "description": "Ask questions using voice or text in your preferred language."
+      },
+      "instantAnswers": {
+        "title": "Instant AI Answers",
+        "description": "Get immediate responses powered by advanced AI technology."
+      },
+      "personalizedAlerts": {
+        "title": "Personalized Alerts",
+        "description": "Receive customized alerts based on your location, crops, and weather."
+      }
+    },
+    "howToUse": {
+      "title": "How to Use Krishi Mitra",
+      "subtitle": "Simple steps to get expert agricultural advice",
+      "step1": {
+        "title": "Register & Login",
+        "description": "Create your account and choose your preferred language and location."
+      },
+      "step2": {
+        "title": "Ask Your Question",
+        "description": "Type or speak your farming question, or upload crop photos for disease detection."
+      },
+      "step3": {
+        "title": "Get Expert Advice",
+        "description": "Receive instant AI-powered answers or connect with agricultural officers."
+      },
+      "step4": {
+        "title": "Take Action",
+        "description": "Follow the recommendations and track your farming progress."
+      }
+    },
+    "useCases": {
+      "title": "Use Cases",
+      "subtitle": "Real scenarios where Krishi Mitra helps farmers",
+      "case1": {
+        "title": "Crop Disease Identification",
+        "description": "A farmer notices yellow spots on banana leaves. They upload a photo and instantly get disease identification with treatment options."
+      },
+      "case2": {
+        "title": "Weather-Based Planning",
+        "description": "Receive alerts about upcoming rainfall to plan irrigation and harvesting activities effectively."
+      },
+      "case3": {
+        "title": "Pesticide Safety",
+        "description": "Scan pesticide labels to get safety instructions and proper application guidelines in your language."
+      }
+    },
+    "loginOptions": {
+      "title": "Choose Your Role",
+      "subtitle": "Select the appropriate login based on your role",
+      "farmer": {
+        "title": "Farmer Login",
+        "description": "Access crop advisory, disease detection, and expert consultation services.",
+        "button": "Login as Farmer"
+      },
+      "officer": {
+        "title": "Agricultural Officer",
+        "description": "Manage farmer queries, provide expert advice, and monitor district-level activities.",
+        "button": "Officer Login"
+      },
+      "admin": {
+        "title": "Admin Login",
+        "description": "System administration, user management, and platform oversight.",
+        "button": "Admin Login"
+      }
+    },
+    "footer": {
+      "description": "Empowering farmers with AI-driven agricultural solutions for better crop management and increased productivity.",
+      "quickLinks": "Quick Links",
+      "contact": "Contact Us",
+      "followUs": "Follow Us",
+      "copyright": "© 2024 Krishi Mitra. All rights reserved."
+    }
   }
 }
