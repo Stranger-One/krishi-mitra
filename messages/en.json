@@ -1,4 +1,28 @@
 {
+  "common": {
+    "krishi": "Krishi",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "open": "Open",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information"
+  },
   "landing": {
     "navigation": {
       "home": "Home",
@@ -124,6 +148,254 @@
       "contact": "Contact Us",
       "followUs": "Follow Us",
       "copyright": "© 2024 Krishi Mitra. All rights reserved."
+    }
+  },
+  "krishi": {
+    "navigation": {
+      "dashboard": "Dashboard",
+      "askQuery": "Ask Query",
+      "history": "History",
+      "alerts": "Alerts",
+      "resources": "Resources",
+      "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Welcome back! Here's your farming overview for today.",
+      "location": "Pune, Maharashtra",
+      "weather": {
+        "title": "Today's Weather",
+        "temperature": "Temperature",
+        "humidity": "Humidity",
+        "windSpeed": "Wind Speed",
+        "rainChance": "Rain Chance"
+      },
+      "stats": {
+        "activeCrops": "Active Crops",
+        "totalArea": "Total Area",
+        "expectedRevenue": "Expected Revenue",
+        "acresUnderCultivation": "Acres under cultivation",
+        "seasonEstimate": "This season estimate",
+        "cropsDescription": "Wheat, Rice, Sugarcane, Cotton"
+      },
+      "alerts": {
+        "title": "Recent Alerts",
+        "subtitle": "Important notifications for your crops",
+        "pestAlert": "Pest Alert: Brown Plant Hopper",
+        "pestDescription": "Detected in nearby rice fields. Take preventive measures.",
+        "weatherWarning": "Weather Warning",
+        "weatherDescription": "Heavy rainfall expected in next 48 hours.",
+        "schemeAlert": "New Scheme Available",
+        "schemeDescription": "PM-KISAN subsidy application deadline approaching.",
+        "highPriority": "High Priority",
+        "mediumPriority": "Medium Priority",
+        "info": "Info"
+      },
+      "tasks": {
+        "title": "Upcoming Tasks",
+        "subtitle": "Your farming schedule for this week",
+        "wheatIrrigation": "Wheat Field Irrigation",
+        "pesticideApplication": "Pesticide Application",
+        "soilTesting": "Soil Testing",
+        "markDone": "Mark Done",
+        "schedule": "Schedule",
+        "book": "Book",
+        "tomorrow": "Tomorrow, 6:00 AM",
+        "dayAfterTomorrow": "Day after tomorrow, 7:00 AM",
+        "nextWeek": "Next week"
+      },
+      "schemes": {
+        "title": "Available Government Schemes",
+        "subtitle": "Schemes you may be eligible for",
+        "pmKisan": "PM-KISAN Samman Nidhi",
+        "pmKisanDescription": "₹6,000 annual income support",
+        "cropInsurance": "Crop Insurance Scheme",
+        "cropInsuranceDescription": "Protect your crops from natural disasters",
+        "soilHealthCard": "Soil Health Card",
+        "soilHealthCardDescription": "Free soil testing and recommendations",
+        "eligible": "Eligible",
+        "applyNow": "Apply Now",
+        "available": "Available"
+      }
+    },
+    "query": {
+      "title": "Ask Query",
+      "subtitle": "Get instant answers to your farming questions",
+      "aiAssistant": "AI Assistant",
+      "inputMethods": {
+        "textQuery": "Text Query",
+        "textDescription": "Type your farming questions",
+        "voiceQuery": "Voice Query",
+        "voiceDescription": "Speak in your local language",
+        "imageQuery": "Image Query",
+        "imageDescription": "Upload crop/pest photos"
+      },
+      "chat": {
+        "title": "Krishi AI Assistant",
+        "subtitle": "Chat with our AI-powered farming expert",
+        "placeholder": "Type your question here...",
+        "aiThinking": "AI is thinking...",
+        "recording": "Recording... Click mic to stop",
+        "welcomeMessage": "Hello! I'm your agricultural assistant. You can ask me anything about crops, weather, pests, or government schemes. You can ask questions through text, voice, or images."
+      },
+      "quickQuestions": {
+        "title": "Quick Questions",
+        "subtitle": "Common farming queries to get you started",
+        "pestProblem": "My crop has pest problems, what should I do?",
+        "weatherToday": "Will it rain today?",
+        "wheatSowing": "What is the right time to sow wheat?",
+        "pmKisanApplication": "How to apply for PM-KISAN scheme?",
+        "soilTesting": "How to get soil testing done?",
+        "organicFertilizer": "How to make organic fertilizer?"
+      }
+    },
+    "history": {
+      "title": "Query History",
+      "subtitle": "View and manage your past farming queries and solutions",
+      "filters": {
+        "title": "Filters & Search",
+        "searchPlaceholder": "Search queries...",
+        "allCategories": "All Categories",
+        "allTypes": "All Types",
+        "cropHealth": "Crop Health",
+        "pestControl": "Pest Control",
+        "cropTiming": "Crop Timing",
+        "governmentSchemes": "Government Schemes",
+        "soilHealth": "Soil Health",
+        "fertilizers": "Fertilizers",
+        "weather": "Weather",
+        "clearFilters": "Clear Filters"
+      },
+      "stats": {
+        "title": "Query Statistics",
+        "subtitle": "Your farming query patterns",
+        "totalQueries": "Total Queries",
+        "favorites": "Favorites",
+        "voiceQueries": "Voice Queries",
+        "imageQueries": "Image Queries"
+      },
+      "noQueries": "No queries found",
+      "noQueriesDescription": "Try adjusting your filters to see more results.",
+      "startAsking": "Start asking questions to build your query history.",
+      "export": "Export"
+    },
+    "alerts": {
+      "title": "District Alerts",
+      "subtitle": "Stay updated with important farming alerts and notifications",
+      "critical": "Critical",
+      "unread": "Unread",
+      "summary": {
+        "criticalAlerts": "Critical Alerts",
+        "weatherAlerts": "Weather Alerts",
+        "cropAlerts": "Crop Alerts",
+        "financialAlerts": "Financial Alerts"
+      },
+      "filters": {
+        "title": "Filters & Settings",
+        "notifications": "Notifications",
+        "markAllRead": "Mark All Read",
+        "alertType": "Alert Type",
+        "severity": "Severity",
+        "unreadOnly": "Unread Only",
+        "clearFilters": "Clear Filters",
+        "allTypes": "All Types",
+        "allSeverities": "All Severities"
+      },
+      "types": {
+        "weather": "Weather",
+        "pest": "Pest Control",
+        "disease": "Disease Alerts",
+        "government": "Government Schemes",
+        "market": "Market Prices",
+        "irrigation": "Irrigation"
+      },
+      "severity": {
+        "critical": "Critical",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      },
+      "actionRequired": "Action Required",
+      "new": "New",
+      "takeAction": "Take Action",
+      "learnMore": "Learn More",
+      "noAlerts": "No alerts found",
+      "noAlertsDescription": "Try adjusting your filters to see more alerts.",
+      "allCaughtUp": "All caught up! No new alerts at the moment.",
+      "preferences": {
+        "title": "Alert Preferences",
+        "subtitle": "Customize which alerts you want to receive",
+        "alertTypes": "Alert Types",
+        "notificationMethods": "Notification Methods",
+        "pushNotifications": "Push Notifications",
+        "smsAlerts": "SMS Alerts",
+        "emailNotifications": "Email Notifications"
+      }
+    },
+    "resources": {
+      "title": "Crop Resources",
+      "subtitle": "Access irrigation guides, pesticide information, government schemes, and crop calendars",
+      "categories": {
+        "irrigation": "Irrigation",
+        "pesticides": "Pesticides",
+        "governmentSchemes": "Government Schemes",
+        "cropCalendar": "Crop Calendar",
+        "equipment": "Equipment",
+        "seeds": "Seeds"
+      },
+      "resourceTypes": {
+        "guide": "Guide",
+        "video": "Video",
+        "document": "Document",
+        "calculator": "Calculator",
+        "calendar": "Calendar",
+        "contact": "Contact"
+      },
+      "expertContacts": {
+        "title": "Expert Contacts",
+        "districtOfficer": "District Agriculture Officer",
+        "krishiVigyan": "Krishi Vigyan Kendra",
+        "fertilizerDealer": "Fertilizer Dealer"
+      },
+      "emergencyContacts": {
+        "title": "Emergency Contacts",
+        "disasterHelpline": "Disaster Helpline",
+        "kisanCallCentre": "Kisan Call Centre"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Manage your profile, notifications, and app preferences",
+      "profile": {
+        "title": "Profile Information",
+        "fullName": "Full Name",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "location": "Location",
+        "farmSize": "Farm Size",
+        "farmingExperience": "Farming Experience"
+      },
+      "notifications": {
+        "title": "Notification Preferences"
+      },
+      "app": {
+        "title": "App Settings",
+        "language": "Language",
+        "voiceInput": "Voice Input",
+        "offlineMode": "Offline Mode",
+        "dataSync": "Data Sync",
+        "autoBackup": "Auto Backup"
+      },
+      "privacy": {
+        "title": "Data & Privacy"
+      },
+      "languages": {
+        "hindi": "हिंदी (Hindi)",
+        "english": "English",
+        "marathi": "मराठी (Marathi)",
+        "gujarati": "ગુજરાતી (Gujarati)",
+        "malayalam": "മലയാളം (Malayalam)"
+      }
     }
   }
 }
