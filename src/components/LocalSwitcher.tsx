@@ -25,7 +25,7 @@ export default function LocalSwitcher() {
   return (
     <div className="w-32 ">
       <Select onValueChange={handleChange} defaultValue={currentLocale}>
-        <SelectTrigger className="w-32 cursor-pointer">
+        <SelectTrigger className="w-32 cursor-pointer border-border">
           <SelectValue placeholder="Select language" />
         </SelectTrigger>
         <SelectContent>

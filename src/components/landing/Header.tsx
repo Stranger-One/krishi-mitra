@@ -7,6 +7,7 @@ import { Menu, X, Globe } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useRouter, usePathname } from "next/navigation"
 import LocalSwitcher from "@/components/LocalSwitcher"
+import Image from "next/image"
 
 export function Header() {
   const t = useTranslations("landing.navigation")
@@ -36,11 +37,11 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-10 lg:px-20">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center overflow-hidden">
               <span className="text-primary-foreground font-bold text-sm">KM</span>
             </div>
             <span className="text-xl font-bold text-primary">Krishi Mitra</span>

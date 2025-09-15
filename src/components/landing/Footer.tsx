@@ -24,7 +24,7 @@ export function Footer() {
 
   return (
     <footer className="bg-card border-t">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="container mx-auto px-4 sm:px-10 lg:px-20 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
