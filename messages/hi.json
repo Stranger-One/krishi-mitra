@@ -397,5 +397,15 @@
         "malayalam": "മലയാളം (Malayalam)"
       }
     }
+  },
+   "officer": {
+    "navigation": {
+      "dashboard": "डैशबोर्ड",
+      "escalations": "Escalations",
+      "analytics": "Analytics", 
+      "alerts": "Alerts",
+      "resources": "Resources",
+      "settings": "Settings"
+    }
   }
 }

@@ -7,11 +7,11 @@ type Props = {
 
 export default async function KrishiLayout({ children, params }: Props) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen bg-background flex ">
       <Sidebar />
 
       {/* Main content */}
-      <div className="lg:pl-64">{children}</div>
+      <div className="flex-1 overflow-y-auto">{children}</div>
     </div>
   );
 }
