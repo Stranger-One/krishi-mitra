@@ -19,7 +19,7 @@ export function HeroSection() {
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
 
-      <div className="container mx-auto px-4 sm:px-10 lg:px-20 relative">
+      <div className=" mx-auto px-4 sm:px-10 lg:px-20 relative">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="space-y-8">

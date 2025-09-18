@@ -1,7 +1,13 @@
 import Alerts from "@/components/krishi/Alerts";
+import Topbar from "@/components/krishi/Topbar";
 
-export default function Page () {
+export default function Page() {
   return (
-    <Alerts/>
+    <>
+      <Topbar location="alerts" />
+      <div className="px-4 sm:px-6 lg:px-8 py-6">
+        <Alerts />
+      </div>
+    </>
   );
-};
+}

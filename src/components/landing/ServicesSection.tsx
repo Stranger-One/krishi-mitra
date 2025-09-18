@@ -48,7 +48,7 @@ export function ServicesSection() {
 
   return (
     <section id="services" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4 sm:px-10 lg:px-20">
+      <div className=" mx-auto px-4 sm:px-10 lg:px-20">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-balance mb-4">{t("title")}</h2>
           <p className="text-lg text-muted-foreground text-pretty max-w-2xl mx-auto">{t("subtitle")}</p>

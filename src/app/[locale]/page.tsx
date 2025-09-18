@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export default async function Page() {
   return (
-    <>
+    <div className="">
       <Header />
       <HeroSection />
       <ServicesSection />
@@ -21,6 +21,6 @@ export default async function Page() {
       <UseCasesSection />
       {/* <LoginOptionsSection /> */}
       <Footer />
-    </>
+    </div>
   );
 }

@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "./ui/select";
 
-export default function LocalSwitcher() {
+export default function LocalSwitcher({}) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -23,9 +23,8 @@ export default function LocalSwitcher() {
   };
 
   return (
-    <div className="w-32 ">
       <Select onValueChange={handleChange} defaultValue={currentLocale}>
-        <SelectTrigger className="w-32 cursor-pointer border-border">
+        <SelectTrigger className="w-full cursor-pointer border-border">
           <SelectValue placeholder="Select language" />
         </SelectTrigger>
         <SelectContent>
@@ -42,6 +41,5 @@ export default function LocalSwitcher() {
           ))}
         </SelectContent>
       </Select>
-    </div>
   );
 }

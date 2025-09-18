@@ -15,19 +15,21 @@ import {
   Bug,
   IndianRupee,
 } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export default function Dashboard() {
+  const t = useTranslations("krishi.dashboard")
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome back! Here's your farming overview for today.</p>
+          <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
+          <p className="text-muted-foreground">{t("subtitle")}</p>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <MapPin className="h-4 w-4" />
-          <span>Pune, Maharashtra</span>
+          <span>{t("location")}</span>
         </div>
       </div>
 
@@ -36,7 +38,7 @@ export default function Dashboard() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Sun className="h-5 w-5 text-yellow-500" />
-            Today's Weather
+           {t("weather.title")}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -45,28 +47,28 @@ export default function Dashboard() {
               <Thermometer className="h-4 w-4 text-red-500" />
               <div>
                 <p className="text-2xl font-bold">28°C</p>
-                <p className="text-sm text-muted-foreground">Temperature</p>
+                <p className="text-sm text-muted-foreground">{t("weather.temperature")}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Droplets className="h-4 w-4 text-blue-500" />
               <div>
                 <p className="text-2xl font-bold">65%</p>
-                <p className="text-sm text-muted-foreground">Humidity</p>
+                <p className="text-sm text-muted-foreground">{t("weather.humidity")}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Wind className="h-4 w-4 text-gray-500" />
               <div>
                 <p className="text-2xl font-bold">12 km/h</p>
-                <p className="text-sm text-muted-foreground">Wind Speed</p>
+                <p className="text-sm text-muted-foreground">{t("weather.windSpeed")}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Cloud className="h-4 w-4 text-gray-600" />
               <div>
                 <p className="text-2xl font-bold">20%</p>
-                <p className="text-sm text-muted-foreground">Rain Chance</p>
+                <p className="text-sm text-muted-foreground">{t("weather.rainChance")}</p>
               </div>
             </div>
           </div>
@@ -77,8 +79,8 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Crops</CardTitle>
-            <Leaf className="h-4 w-4 text-green-600" />
+            <CardTitle className="text-lg font-medium">{t("stats.activeCrops")}</CardTitle>
+            <Leaf className="h-6 w-6 text-green-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">4</div>
@@ -88,8 +90,8 @@ export default function Dashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Area</CardTitle>
-            <TrendingUp className="h-4 w-4 text-blue-600" />
+            <CardTitle className="text-lg font-medium">{t("stats.totalArea")}</CardTitle>
+            <TrendingUp className="h-6 w-6 text-blue-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">12.5</div>
@@ -99,8 +101,8 @@ export default function Dashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Expected Revenue</CardTitle>
-            <IndianRupee className="h-4 w-4 text-green-600" />
+            <CardTitle className="text-lg font-medium">{t("stats.expectedRevenue")}</CardTitle>
+            <IndianRupee className="h-6 w-6 text-green-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">₹2,45,000</div>
@@ -115,9 +117,9 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-orange-500" />
-              Recent Alerts
+              {t("alerts.title")}
             </CardTitle>
-            <CardDescription>Important notifications for your crops</CardDescription>
+            <CardDescription>{t("alerts.subtitle")}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-start gap-3 p-3 bg-red-50 rounded-lg border border-red-200">
@@ -159,9 +161,9 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Calendar className="h-5 w-5 text-green-600" />
-              Upcoming Tasks
+              {t("tasks.title")}
             </CardTitle>
-            <CardDescription>Your farming schedule for this week</CardDescription>
+            <CardDescription>{t("tasks.subtitle")}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
@@ -203,8 +205,8 @@ export default function Dashboard() {
       {/* Government Schemes */}
       <Card>
         <CardHeader>
-          <CardTitle>Available Government Schemes</CardTitle>
-          <CardDescription>Schemes you may be eligible for</CardDescription>
+          <CardTitle>{t("schemes.title")}</CardTitle>
+          <CardDescription>{t("schemes.subtitle")}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
