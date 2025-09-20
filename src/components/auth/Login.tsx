@@ -36,7 +36,7 @@ export default function Login () {
 
    const onSubmit = (data: LoginFormValues) => {
     console.log("Login form submitted", data);
-    router.push(`/`)
+    router.push(`/krishi`)
     // In a real app, this would handle login logic
   };
 
