@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import {
   Card,
   CardContent,
@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import ReactMarkdown from 'react-markdown';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
@@ -29,6 +30,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+// --- API Configuration ---
+const API_KEY = "AIzaSyDXivjGISZ3oU3nSYFILNiA9SokCgJTqOA"; // Leave empty - handled at runtime
+const BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/";
+const MODEL_NAME = "gemini-2.5-flash-preview-05-20";
+
 interface Message {
   id: string;
   type: "user" | "bot";
@@ -44,7 +50,7 @@ export default function Query() {
       id: "1",
       type: "bot",
       content:
-        "नमस्ते! मैं आपका कृषि सहायक हूं। आप मुझसे फसल, मौसम, कीट-पतंग, या सरकारी योजनाओं के बारे में कुछ भी पूछ सकते हैं। आप टेक्स्ट, आवाज़, या तस्वीर के जरिए सवाल पूछ सकते हैं।",
+        "Hello! I am your Krishi Assistant. You can ask me anything about crops, weather, pests, or government schemes. You can ask questions through text, voice, or images.",
       timestamp: new Date(),
     },
   ]);
@@ -59,10 +65,115 @@ export default function Query() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Utility to convert File to Base64
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = (reader.result as string).split(',')[1];
+        resolve(base64String);
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  };
+
+  // Fetch with retry mechanism
+  const fetchWithRetry = useCallback(async (url: string, options: RequestInit, maxRetries = 3) => {
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        const response = await fetch(url, options);
+        if (response.ok) {
+          return response;
+        }
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      } catch (error) {
+        console.error(`Attempt ${i + 1} failed:`, error);
+        if (i < maxRetries - 1) {
+          await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+        } else {
+          throw new Error("Failed to connect to the API after multiple retries.");
+        }
+      }
+    }
+  }, []);
+
+  // Generate content using Gemini API
+  const generateContent = useCallback(async (prompt: string, imageData?: { base64Data: string; mimeType: string }, type: 'text' | 'image' = 'text') => {
+    const url = `${BASE_URL}${MODEL_NAME}:generateContent?key=${API_KEY}`;
+
+    let contents = [{ parts: [] as any[] }];
+    let systemInstructionText: string;
+
+    if (type === 'image' && imageData) {
+      systemInstructionText = "You are an expert plant pathology and agronomy assistant. Analyze the provided image of the crop, identify any visible diseases or deficiencies, provide a clear diagnosis, and recommend a specific, actionable organic or chemical treatment plan. Respond in English. Format the response clearly with Diagnosis, Symptoms, and Recommended Treatment sections.";
+      contents[0].parts.push({ text: prompt });
+      contents[0].parts.push({
+        inlineData: {
+          mimeType: imageData.mimeType,
+          data: imageData.base64Data,
+        }
+      });
+    } else {
+      systemInstructionText = "You are an expert Krishi-Mitra (Farmer's Friend) providing advice on crops, weather, and general agricultural topics. Use the Google Search tool to provide accurate, up-to-date, and region-relevant information. Be supportive and offer practical solutions. Respond in English. Focus on farming practices, local conditions, and government schemes.";
+      contents[0].parts.push({ text: prompt });
+    }
+
+    const payload = {
+      contents: contents,
+      systemInstruction: { parts: [{ text: systemInstructionText }] },
+      ...(type === 'text' && { tools: [{ google_search: {} }] }),
+      generationConfig: {
+        temperature: 0.2
+      }
+    };
+
+    try {
+      const response = await fetchWithRetry(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response) throw new Error("No response received");
+
+      const result = await response.json();
+      const candidate = result.candidates?.[0];
+
+      if (candidate && candidate.content?.parts?.[0]?.text) {
+        let text = candidate.content.parts[0].text;
+        
+        // Extract grounding sources if used
+        const groundingMetadata = candidate.groundingMetadata;
+        if (groundingMetadata && groundingMetadata.groundingAttributions) {
+          const sources = groundingMetadata.groundingAttributions
+            .map((attribution: any) => ({
+              uri: attribution.web?.uri,
+              title: attribution.web?.title,
+            }))
+            .filter((source: any) => source.uri && source.title);
+          
+          if (sources.length > 0) {
+            text += "\n\n**Sources:**\n" + sources.map((s: any) => `[${s.title}](${s.uri})`).join('\n');
+          }
+        }
+
+        return text;
+      } else {
+        console.error("API response structure unexpected:", result);
+        return "Sorry, I didn't get a proper response from the server. Please try again.";
+      }
+    } catch (error) {
+      console.error("Gemini API call failed:", error);
+      return "A communication error occurred. Please check your network connection or try a different query.";
+    }
+  }, [fetchWithRetry]);
+
   const handleSendMessage = async (
     content: string,
     type: "text" | "voice" | "image" = "text",
-    imageUrl?: string
+    imageUrl?: string,
+    imageFile?: File
   ) => {
     if (!content.trim() && !imageUrl) return;
 
@@ -79,64 +190,40 @@ export default function Query() {
     setInputText("");
     setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const botResponse: Message = {
+    try {
+      let botResponse: string;
+      
+      if (type === "image" && imageFile) {
+        const base64Data = await fileToBase64(imageFile);
+        const imageData = {
+          base64Data,
+          mimeType: imageFile.type
+        };
+        botResponse = await generateContent(content || "Analyze this image and identify any diseases or problems.", imageData, 'image');
+      } else {
+        botResponse = await generateContent(content, undefined, 'text');
+      }
+
+      const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: "bot",
-        content: generateBotResponse(content, type),
+        content: botResponse,
         timestamp: new Date(),
       };
-      setMessages((prev) => [...prev, botResponse]);
+
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (error) {
+      console.error("Error generating response:", error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        type: "bot",
+        content: "Sorry, there was a technical issue. Please try again.",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
       setIsLoading(false);
       setTimeout(scrollToBottom, 100);
-    }, 1500);
-
-    setTimeout(scrollToBottom, 100);
-  };
-
-  const generateBotResponse = (
-    query: string,
-    type: "text" | "voice" | "image"
-  ): string => {
-    const responses = {
-      pest: "कीट-पतंग की समस्या के लिए: 1) नीम का तेल का छिड़काव करें 2) जैविक कीटनाशक का उपयोग करें 3) फसल चक्र अपनाएं। अधिक जानकारी के लिए स्थानीय कृषि विभाग से संपर्क करें।",
-      weather:
-        "मौसम की जानकारी: आज बारिश की 20% संभावना है। तापमान 28°C रहेगा। अगले 3 दिन शुष्क मौसम रहेगा, सिंचाई की योजना बनाएं।",
-      crop: "फसल की देखभाल: 1) नियमित सिंचाई करें 2) मिट्टी की जांच कराएं 3) उर्वरक का सही उपयोग करें 4) कीट-पतंग पर नजर रखें।",
-      scheme:
-        "सरकारी योजनाएं: PM-KISAN (₹6000/वर्ष), फसल बीमा योजना, मृदा स्वास्थ्य कार्ड उपलब्ध हैं। आवेदन के लिए नजदीकी CSC केंद्र पर जाएं।",
-      default:
-        "आपका सवाल दिलचस्प है। कृषि विशेषज्ञों से सलाह लेने के लिए हमारे रिसोर्स सेक्शन में जाएं या स्थानीय कृषि विभाग से संपर्क करें।",
-    };
-
-    const lowerQuery = query.toLowerCase();
-    if (
-      lowerQuery.includes("कीट") ||
-      lowerQuery.includes("pest") ||
-      lowerQuery.includes("bug")
-    ) {
-      return responses.pest;
-    } else if (
-      lowerQuery.includes("मौसम") ||
-      lowerQuery.includes("weather") ||
-      lowerQuery.includes("बारिश")
-    ) {
-      return responses.weather;
-    } else if (
-      lowerQuery.includes("फसल") ||
-      lowerQuery.includes("crop") ||
-      lowerQuery.includes("खेती")
-    ) {
-      return responses.crop;
-    } else if (
-      lowerQuery.includes("योजना") ||
-      lowerQuery.includes("scheme") ||
-      lowerQuery.includes("subsidy")
-    ) {
-      return responses.scheme;
-    } else {
-      return responses.default;
     }
   };
 
@@ -146,7 +233,7 @@ export default function Query() {
       // Simulate voice recognition result
       setTimeout(() => {
         handleSendMessage(
-          "मेरी गेहूं की फसल में पीले पत्ते दिख रहे हैं",
+          "My wheat crop is showing yellow leaves",
           "voice"
         );
       }, 1000);
@@ -160,9 +247,10 @@ export default function Query() {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       handleSendMessage(
-        "कृपया इस तस्वीर को देखकर बताएं कि क्या समस्या है",
+        "Please analyze this image and tell me what problem it shows",
         "image",
-        imageUrl
+        imageUrl,
+        file
       );
     }
   };
@@ -173,7 +261,7 @@ export default function Query() {
       setIsSpeaking(false);
     } else {
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "hi-IN";
+      utterance.lang = "en-US";
       utterance.onend = () => setIsSpeaking(false);
       speechSynthesis.speak(utterance);
       setIsSpeaking(true);
@@ -198,7 +286,7 @@ export default function Query() {
 
       {/* Input Methods */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Link href="#chat-interface">
+        <Link href="">
           <Card className="border-2 border-dashed border-primary/20 hover:border-primary/40 transition-colors">
             <CardHeader className="text-center pb-2">
               <MessageSquare className="h-8 w-8 text-primary mx-auto" />
@@ -254,7 +342,7 @@ export default function Query() {
 
         <CardContent className="  flex flex-col p-0">
           {/* Messages */}
-          <ScrollArea className="p-4 h-[400px] overflow-auto">
+          <ScrollArea className="p-4 h-[500px] overflow-auto">
             <div className="space-y-4">
               {messages.map((message) => (
                 <div
@@ -297,7 +385,8 @@ export default function Query() {
                         />
                       )}
                       <p className="text-sm whitespace-pre-wrap">
-                        {message.content}
+                        <ReactMarkdown>{message.content}</ReactMarkdown>
+                        {/* {message.content} */}
                       </p>
                       <div className="flex items-center justify-between mt-2">
                         <span className="text-xs opacity-70">
@@ -355,7 +444,7 @@ export default function Query() {
             <div className="flex gap-2">
               <div className="flex-1 relative">
                 <Textarea
-                  placeholder="अपना सवाल यहाँ लिखें... (Type your question here...)"
+                  placeholder="Type your question here..."
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   onKeyDown={(e) => {
@@ -430,12 +519,12 @@ export default function Query() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
-              "मेरी फसल में कीड़े लग गए हैं, क्या करूं?",
-              "आज बारिश होगी क्या?",
-              "गेहूं की बुआई का सही समय क्या है?",
-              "PM-KISAN योजना के लिए कैसे आवेदन करूं?",
-              "मिट्टी की जांच कैसे कराऊं?",
-              "जैविक खाद कैसे बनाऊं?",
+              "My crops have insects, what should I do?",
+              "Will it rain today?",
+              "What is the right time to sow wheat?",
+              "How to apply for PM-KISAN scheme?",
+              "How to get soil tested?",
+              "How to make organic fertilizer?",
             ].map((question, index) => (
               <Button
                 key={index}
