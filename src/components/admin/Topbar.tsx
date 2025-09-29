@@ -6,10 +6,8 @@ import {
   BookOpen,
   History,
   LayoutDashboard,
-  LogOut,
   Menu,
   MessageSquare,
-  Settings,
   X,
 } from "lucide-react";
 import LocalSwitcher from "../LocalSwitcher";
@@ -22,43 +20,37 @@ import Link from "next/link";
 const navigation = [
   {
     name: "dashboard",
-    href: "/krishi",
+    href: "/officer",
     icon: <LayoutDashboard className="h-4 w-4" />,
   },
   {
-    name: "askQuery",
-    href: "/krishi/query",
+    name: "escalations",
+    href: "/officer/escalations",
     icon: <MessageSquare className="h-4 w-4" />,
   },
   {
-    name: "history",
-    href: "/krishi/history",
+    name: "alerts",
+    href: "/officer/alerts",
     icon: <History className="h-4 w-4" />,
   },
   {
-    name: "alerts",
-    href: "/krishi/alerts",
+    name: "resources",
+    href: "/officer/resources",
     icon: <AlertTriangle className="h-4 w-4" />,
   },
   {
-    name: "resources",
-    href: "/krishi/resources",
+    name: "analytics",
+    href: "/officer/analytics",
     icon: <BookOpen className="h-4 w-4" />,
-  },
-  {
-    name: "settings",
-    href: "/krishi/settings",
-    icon: <Settings className="h-4 w-4" />,
   },
 ];
 
 export default function Topbar({ location }: { location: string }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const nt = useTranslations("common.navigation");
-  const ct = useTranslations("common");
   const pathname = usePathname();
 
-  console.log("location", location);
+  console.log("location", location)
 
   const router = useRouter();
   return (
@@ -86,7 +78,7 @@ export default function Topbar({ location }: { location: string }) {
           <Menu className="h-6 w-6 " />
         </button>
       </div>
-
+      
       {/* Mobile sidebar */}
       {
         <div
@@ -95,7 +87,7 @@ export default function Topbar({ location }: { location: string }) {
             sidebarOpen ? "block" : "hidden"
           )}
         >
-          <div className="h-screen flex flex-col justify-between w-full bg-card border-r border-border relative">
+          <div className="fixed left-0 top-0 h-full w-full bg-card border-r border-border">
             <div className="flex items-center justify-between px-4">
               <div className="flex items-center space-x-2 h-16 w-full ">
                 <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center overflow-hidden">
@@ -115,45 +107,29 @@ export default function Topbar({ location }: { location: string }) {
                 <X className="h-6 w-6 " />
               </button>
             </div>
-            <div className="flex flex-col justify-between flex-1">
-              <nav className="p-4 space-y-2">
-                <LocalSwitcher />
+            <nav className="p-4 space-y-2">
+              <LocalSwitcher />
 
-                {navigation.map((item) => {
-                  const isActive = pathname === item.href;
-                  return (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={cn(
-                        "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ",
-                        isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                      )}
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      {item.icon}
-                      {nt(item.name)}
-                    </Link>
-                  );
-                })}
-              </nav>
-              <div className="p-4 space-y-2">
-                <Link
-                  href={"/"}
-                  className={cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ",
-                    // isActive
-                    "bg-primary text-primary-foreground"
-                    // : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  )}
-                >
-                  <LogOut className="h-4 w-4" />
-                  {ct("logout")}
-                </Link>
-              </div>
-            </div>
+              {navigation.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ",
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    )}
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    {item.icon}
+                    {nt(item.name)}
+                  </Link>
+                );
+              })}
+            </nav>
           </div>
         </div>
       }

@@ -9,6 +9,8 @@ import {
   MessageSquare,
   Settings,
   Sprout,
+  User,
+  Users,
   X,
 } from "lucide-react";
 import { useState } from "react";
@@ -20,38 +22,47 @@ import { usePathname } from "@/i18n/navigation";
 const navigation = [
   {
     name: "dashboard",
-    href: "/officer",
+    href: "/admin",
     icon: <LayoutDashboard className="h-4 w-4" />,
   },
-  {
-    name: "escalations",
-    href: "/officer/escalations",
-    icon: <MessageSquare className="h-4 w-4" />,
-  },
+  // {
+  //   name: "analytics",
+  //   href: "/admin/analytics",
+  //   icon: <MessageSquare className="h-4 w-4" />,
+  // },
   {
     name: "alerts",
-    href: "/officer/alerts",
+    href: "/admin/alerts",
     icon: <History className="h-4 w-4" />,
   },
   {
     name: "resources",
-    href: "/officer/resources",
+    href: "/admin/resources",
     icon: <AlertTriangle className="h-4 w-4" />,
   },
   {
     name: "analytics",
-    href: "/officer/analytics",
+    href: "/admin/analytics",
     icon: <BookOpen className="h-4 w-4" />,
+  },
+  {
+    name: "users",
+    href: "/admin/users",
+    icon: <Users className="h-4 w-4" />,
+  },
+  {
+    name: "settings",
+    href: "/admin/settings",
+    icon: <Settings className="h-4 w-4" />,
   },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const nt = useTranslations("common.navigation");
+  const nt = useTranslations("common.navigation"); // nt -> Navigation Translations
 
   return (
     <>
-
       {/* Desktop sidebar */}
       <div className="hidden w-[250px] lg:block lg:w-64 lg:overflow-y-auto lg:bg-card lg:border-r lg:border-border">
         <div className="flex items-center space-x-2 h-16 w-full p-4">

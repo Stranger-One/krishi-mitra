@@ -53,7 +53,7 @@ const navigation = [
 
 export default function Topbar({ location }: { location: string }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const t = useTranslations("officer.navigation");
+  const nt = useTranslations("common.navigation");
   const pathname = usePathname();
 
   console.log("location", location)
@@ -69,7 +69,7 @@ export default function Topbar({ location }: { location: string }) {
         >
           <ArrowLeft className="h-5 w-5 " />
         </button>
-        <h1 className="text-xl font-bold tracking-tight">{t(location)}</h1>
+        <h1 className="text-xl font-bold tracking-tight">{nt(location)}</h1>
       </div>
 
       <div className="flex items-center gap-x-4 self-stretch lg:gap-x-6">
@@ -131,7 +131,7 @@ export default function Topbar({ location }: { location: string }) {
                     onClick={() => setSidebarOpen(false)}
                   >
                     {item.icon}
-                    {t(item.name)}
+                    {nt(item.name)}
                   </Link>
                 );
               })}

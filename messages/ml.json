@@ -21,7 +21,20 @@
     "error": "പിശക്",
     "success": "വിജയം",
     "warning": "മുന്നറിയിപ്പ്",
-    "info": "വിവരം"
+    "info": "വിവരം",
+    "logout": "ലോഗ് ഔട്ട്",
+
+    "navigation": {
+      "dashboard": "ഡാഷ്ബോർഡ്",
+      "escalations": "കൈമാറിയ ചോദ്യങ്ങൾ",
+      "analytics": "വിശകലനം",
+      "alerts": "അലേർട്ടുകൾ",
+      "askQuery": "ചോദ്യം ചോദിക്കുക",
+      "history": "ചരിത്രം",
+      "resources": "വിഭവങ്ങൾ",
+      "users": "ഉപയോക്താക്കൾ",
+      "settings": "സെറ്റിംഗുകൾ"
+    }
   },
   "landing": {
     "navigation": {
@@ -29,6 +42,7 @@
       "services": "സേവനങ്ങൾ",
       "features": "സവിശേഷതകൾ",
       "howToUse": "എങ്ങനെ ഉപയോഗിക്കാം",
+      "useCases": "ഉപയോഗ കേസുകൾ",
       "login": "ലോഗിൻ",
       "getStarted": "ആരംഭിക്കുക"
     },
@@ -151,14 +165,6 @@
     }
   },
   "krishi": {
-    "navigation": {
-      "dashboard": "ഡാഷ്ബോർഡ്",
-      "askQuery": "ചോദ്യം ചോദിക്കുക",
-      "history": "ചരിത്രം",
-      "alerts": "അലേർട്ടുകൾ",
-      "resources": "വിഭവങ്ങൾ",
-      "settings": "സെറ്റിംഗുകൾ"
-    },
     "dashboard": {
       "title": "ഡാഷ്ബോർഡ്",
       "subtitle": "തിരികെ സ്വാഗതം! ഇന്നത്തെ നിങ്ങളുടെ കൃഷിയുടെ അവലോകനം ഇതാ.",
@@ -398,14 +404,6 @@
       }
     }
   },
-  "officer": {
-    "navigation": {
-      "dashboard": "ഡാഷ്ബോർഡ്",
-      "escalations": "Escalations",
-      "analytics": "Analytics",
-      "alerts": "Alerts",
-      "resources": "Resources",
-      "settings": "Settings"
-    }
-  }
+  "officer": {},
+  "admin": {}
 }

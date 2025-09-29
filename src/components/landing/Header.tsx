@@ -1,39 +1,44 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useTranslations, useLocale } from "next-intl"
-import { Button } from "@/components/ui/button"
-import { Menu, X, Globe } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { useRouter, usePathname } from "next/navigation"
-import LocalSwitcher from "@/components/LocalSwitcher"
-import Image from "next/image"
+import { useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { Button } from "@/components/ui/button";
+import { Menu, X, Globe } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useRouter, usePathname } from "next/navigation";
+import LocalSwitcher from "@/components/LocalSwitcher";
+import Image from "next/image";
 
 export function Header() {
-  const t = useTranslations("landing.navigation")
-  const locale = useLocale()
-  const router = useRouter()
-  const pathname = usePathname()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const t = useTranslations("landing.navigation");
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const languages = [
     { code: "en", name: "English", nativeName: "English" },
     { code: "hi", name: "Hindi", nativeName: "हिन्दी" },
     { code: "ml", name: "Malayalam", nativeName: "മലയാളം" },
-  ]
+  ];
 
   const handleLanguageChange = (newLocale: string) => {
-    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`)
-    router.push(newPath)
-  }
+    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
+    router.push(newPath);
+  };
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
+    const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      element.scrollIntoView({ behavior: "smooth" });
     }
-    setIsMenuOpen(false)
-  }
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -42,7 +47,9 @@ export function Header() {
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center overflow-hidden">
-              <span className="text-primary-foreground font-bold text-sm">KM</span>
+              <span className="text-primary-foreground font-bold text-sm">
+                KM
+              </span>
             </div>
             <span className="text-xl font-bold text-primary">Krishi Mitra</span>
           </div>
@@ -73,12 +80,20 @@ export function Header() {
             >
               {t("howToUse")}
             </button>
+            <button
+              onClick={() => scrollToSection("use-cases")}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              {t("useCases")}
+            </button>
           </nav>
 
           {/* Language Selector & CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <LocalSwitcher/>
-            <Button onClick={() => router.push("/auth/login")}>{t("getStarted")}</Button>
+            <LocalSwitcher />
+            <Button onClick={() => router.push("/auth/login")}>
+              {t("getStarted")}
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -101,8 +116,16 @@ export function Header() {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu> */}
-            <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
@@ -135,13 +158,16 @@ export function Header() {
               >
                 {t("howToUse")}
               </button>
-              {/* <button
-                onClick={() => router.push("/auth/login")}
+              <button
+                onClick={() => scrollToSection("use-cases")}
                 className="text-left text-foreground hover:text-primary transition-colors"
               >
-                {t("login")}
-              </button> */}
-              <Button onClick={() => router.push("/auth/login")} className="w-full">
+                {t("useCases")}
+              </button>
+              <Button
+                onClick={() => router.push("/auth/login")}
+                className="w-full"
+              >
                 {t("getStarted")}
               </Button>
             </nav>
@@ -149,5 +175,5 @@ export function Header() {
         )}
       </div>
     </header>
-  )
+  );
 }
